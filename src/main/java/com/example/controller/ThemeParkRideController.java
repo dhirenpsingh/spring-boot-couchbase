@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +14,11 @@ import javax.validation.Valid;
 
 @RestController
 public class ThemeParkRideController {
+	
+    private Logger logger = LoggerFactory.getLogger(ThemeParkRideController.class);
+    
 	private final ThemeParkRideRepository themeParkRideRepository;
+	
 
 	public ThemeParkRideController(ThemeParkRideRepository themeParkRideRepository) {
 		this.themeParkRideRepository = themeParkRideRepository;
@@ -20,17 +26,20 @@ public class ThemeParkRideController {
 
 	@GetMapping(value = "/ride", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<ThemeParkRide> getRides() {
+		logger.info("getting rides details");
 		return themeParkRideRepository.findAll();
 	}
 
 	@GetMapping(value = "/ride/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ThemeParkRide getRide(@PathVariable long id) {
+		logger.info("searching rides details by id " +id);
 		return themeParkRideRepository.findById(id).orElseThrow(
 				() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Invalid ride id %s", id)));
 	}
 
 	@PostMapping(value = "/ride", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ThemeParkRide createRide(@Valid @RequestBody ThemeParkRide themeParkRide) {
+		logger.info("Saving rides details");
 		return themeParkRideRepository.save(themeParkRide);
 	}
 }
