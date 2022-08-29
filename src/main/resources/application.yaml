@@ -1,0 +1,18 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /spring-boot-example
+    
+logging:
+  level:
+    org: 
+      springframework: INFO
+    com:
+      example: INFO
+      
+spring:
+  couchbase:
+    connection-string: couchbase://127.0.0.1
+    username: Administrator
+    password: Administrator
+      

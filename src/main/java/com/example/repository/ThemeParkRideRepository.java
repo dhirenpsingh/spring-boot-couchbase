@@ -1,14 +1,14 @@
 package com.example.repository;
 
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+
+import org.springframework.data.couchbase.repository.CouchbaseRepository;
 import org.springframework.stereotype.Repository;
 
 import com.example.entity.ThemeParkRide;
 
-import java.util.List;
-
 @Repository
-public interface ThemeParkRideRepository extends CrudRepository<ThemeParkRide, Long> {
+public interface ThemeParkRideRepository extends CouchbaseRepository<ThemeParkRide, String> {
     List<ThemeParkRide> findByName(String name);
 }

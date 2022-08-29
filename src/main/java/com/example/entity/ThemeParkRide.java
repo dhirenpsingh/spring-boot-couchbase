@@ -1,26 +1,32 @@
 package com.example.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+
 import javax.validation.constraints.NotEmpty;
 
-@Entity
-@Getter
-@ToString
+import org.springframework.data.annotation.Id;
+import org.springframework.data.couchbase.core.mapping.Document;
+import org.springframework.data.couchbase.core.mapping.id.GeneratedValue;
+import org.springframework.data.couchbase.core.mapping.id.GenerationStrategy;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
+// identified the domain object to be persisted to couchbase
+@Document
 public class ThemeParkRide {
+
   @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
-  private Long id;
-  @NotEmpty
+  @GeneratedValue(strategy = GenerationStrategy.UNIQUE)
+  private String id;
   private String name;
-  @NotEmpty
   private String description;
   private int thrillFactor;
   private int vomitFactor;
@@ -31,6 +37,5 @@ public class ThemeParkRide {
     this.thrillFactor = thrillFactor;
     this.vomitFactor = vomitFactor;
   }
-
 
 }
